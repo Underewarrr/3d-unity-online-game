@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using FishNet.Object;
  
-//Made by Bobsi Unity - Youtube
+//credits by Bobsi Unity - Youtube
 public class PlayerSpawnObject : NetworkBehaviour
 {
     public GameObject objToSpawn;
