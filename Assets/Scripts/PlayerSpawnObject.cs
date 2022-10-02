@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using FishNet.Object;
  
-//Reference https://docs-multiplayer.unity3d.com/netcode/current/basics/object-spawning/index.html
+//Made by Bobsi Unity - Youtube
 public class PlayerSpawnObject : NetworkBehaviour
 {
     public GameObject objToSpawn;
@@ -32,17 +32,17 @@ public class PlayerSpawnObject : NetworkBehaviour
     [ServerRpc]
     public void SpawnObject(GameObject obj, Transform player, PlayerSpawnObject script)
     {
-        GameObject spawned = Instantiate(obj, player.position + player.forward, Quaternion.identity); // Spawn Locally
-        ServerManager.Spawn(spawned); // Spawn on the Server
-        SetSpawnedObject(spawned, script); // set the object to spawn
+        GameObject spawned = Instantiate(obj, player.position + player.forward, Quaternion.identity);
+        ServerManager.Spawn(spawned);
+        SetSpawnedObject(spawned, script);
     }
  
     [ObserversRpc]
     public void SetSpawnedObject(GameObject spawned, PlayerSpawnObject script)
     {
-        script.spawnedObject = spawned; // what object to spawn
+        script.spawnedObject = spawned;
     }
-    // when despawning we send the object
+ 
     [ServerRpc(RequireOwnership = false)]
     public void DespawnObject(GameObject obj)
     {
