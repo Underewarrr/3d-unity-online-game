@@ -3,15 +3,16 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - WorldObjects
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - WorldObjects
   - Water
   - UI
-  - 
+  - PickUp
   - 
   - 
   - 
