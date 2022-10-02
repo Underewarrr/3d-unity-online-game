@@ -15,5 +15,7 @@ Game made with unity using C#! and FishNet for network connections.
 * World should generate automatic.
 - [ ] Build System for players
 * Player should be able to build houses and objects.
+- [ ] Player Health Network
+* Player should have a sync health
 
 Under construction
