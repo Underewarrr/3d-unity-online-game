@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using FishNet.Object;
  
-//This script is made by Bobsi Unity for Youtube
+// Refence Bobi https://forum.unity.com/threads/3d-character-picking-up-item.900098/
 public class PlayerPickup : NetworkBehaviour
 {
     [SerializeField] float raycastDistance;
