@@ -11,5 +11,7 @@ Game made with unity using C#! and FishNet for network connections.
 * All players can take items who have the tag pickup.
 - [x] [Player have an inventory system.](https://github.com/Underewarrr/3d-unity-online-game/pull/5)
 * Player are able to pickup and drop items from inventory.
+- [ ] Procedural Generation Network.
+* World should generate automatic.
 
 Under construction
