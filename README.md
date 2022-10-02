@@ -9,7 +9,7 @@ Game made with unity using C#! and FishNet for network connections.
 * Player can spawn an object pressing a key and remove the object.
 - [x] [Player can take items and drop.](https://github.com/Underewarrr/3d-unity-online-game/pull/4)
 * All players can take items who have the tag pickup.
-- [ ] Player have an inventory system.
+- [x] [Player have an inventory system.](https://github.com/Underewarrr/3d-unity-online-game/pull/5)
 * Player are able to pickup and drop items from inventory.
 
 Under construction
