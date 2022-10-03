@@ -15,7 +15,7 @@ Game made with unity using C#! and FishNet for network connections.
 * World should generate automatic.
 - [ ] Build System for players
 * Player should be able to build houses and objects.
-- [x] [Player Health Network.](https://github.com/Underewarrr/3d-unity-online-game/compare/player-health-network?expand=1)
+- [x] [Player Health Network.](https://github.com/Underewarrr/3d-unity-online-game/pull/6)
 * Player should have a sync health
 
 Under construction
