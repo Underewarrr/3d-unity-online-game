@@ -144,6 +144,7 @@ GameObject:
   - component: {fileID: 9121035790669026733}
   - component: {fileID: 3514346791190040436}
   - component: {fileID: 1871061000397317257}
+  - component: {fileID: 2150616528952773332}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -235,7 +236,7 @@ MonoBehaviour:
   _isGlobal: 0
   _disableOnDespawn: 0
   NetworkObserver: {fileID: 0}
-  <PrefabId>k__BackingField: 3
+  <PrefabId>k__BackingField: 5
   _scenePathHash: 0
   <SceneId>k__BackingField: 0
   <AssetPathHash>k__BackingField: 7807759643866311769
@@ -312,6 +313,29 @@ MonoBehaviour:
   pickupPosition: {fileID: 96893298700572673}
   pickupButton: 101
   dropButton: 113
+--- !u!114 &2150616528952773332
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4060396885843017221}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 071e9c9074b50704e8527c7ac37f2aca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _componentIndexCache: 255
+  _addedNetworkObject: {fileID: 9003799652436270358}
+  _networkObjectCache: {fileID: 0}
+  inventoryObjects: []
+  invCanvasObject: {fileID: 245503746438695462, guid: 3b50798c3a7c0e84faaec3504a21b7fb, type: 3}
+  inventoryButton: 9
+  pickupLayer:
+    serializedVersion: 2
+    m_Bits: 64
+  pickupDistance: 2
+  pickupButton: 101
 --- !u!1 &4894888765721445481
 GameObject:
   m_ObjectHideFlags: 0
