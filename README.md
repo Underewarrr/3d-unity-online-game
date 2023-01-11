@@ -1,6 +1,8 @@
 # 3d-unity-online-game
 Game made with unity using C#! and FishNet for network connections.
 
+![Git Hub Repo Size](https://img.shields.io/github/repo-size/underewarrr/3d-unity-online-game)<br>
+
 - [x] [Player Movement and Network conection.](https://github.com/Underewarrr/3d-unity-online-game/pull/1)
 * Response for other player to see and interact.
 - [x] [Send function over the NetWork.](https://github.com/Underewarrr/3d-unity-online-game/pull/2)
