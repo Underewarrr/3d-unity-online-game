@@ -108,7 +108,7 @@ GameObject:
   - component: {fileID: 6319790708797604708}
   - component: {fileID: 6595566800893028757}
   m_Layer: 0
-  m_Name: objToSpawn
+  m_Name: ObjToSpawn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -154,6 +154,6 @@ MonoBehaviour:
   <PrefabId>k__BackingField: -1
   _scenePathHash: 0
   <SceneId>k__BackingField: 0
-  <AssetPathHash>k__BackingField: 2929042894771040993
+  <AssetPathHash>k__BackingField: 12077370152215176929
   _sceneNetworkObjects:
   - {fileID: 6595566800893028757}

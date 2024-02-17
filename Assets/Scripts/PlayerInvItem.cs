@@ -7,4 +7,5 @@ public class PlayerInvItem : ScriptableObject
 {
     public string itemName;
     public GameObject prefab;
+
 }

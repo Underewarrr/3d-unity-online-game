@@ -3,18 +3,15 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags:
-  - WorldObjects
-  - InventoryPanel
-  - InventoryObjectHolder
+  tags: []
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - WorldObjects
+  - 
   - Water
   - UI
-  - PickUp
+  - 
   - 
   - 
   - 
