@@ -10,6 +10,7 @@ public class PlayerPickup : NetworkBehaviour
     [SerializeField] private float raycastDistance;
     [SerializeField] private LayerMask pickupLayer;
     [SerializeField] private Transform pickupPosition;
+    [SerializeField] private Vector3 pickupOffset; // Offset para ajustar a posição de pegar em relação ao transformador pickupPosition
     [SerializeField] private KeyCode pickupButton = KeyCode.E;
     [SerializeField] private KeyCode dropButton = KeyCode.Q;
 
@@ -50,7 +51,9 @@ public class PlayerPickup : NetworkBehaviour
             // Se o jogador não tiver um objeto na mão, pega o objeto atingido
             if (!hasObjectInHand)
             {
-                SetObjectInHandServer(hit.transform.gameObject, pickupPosition.position, pickupPosition.rotation, gameObject);
+                // Calcula a posição final do objeto com base no offset
+                Vector3 finalPosition = pickupPosition.position + pickupOffset;
+                SetObjectInHandServer(hit.transform.gameObject, finalPosition, pickupPosition.rotation, gameObject);
                 objInHand = hit.transform.gameObject;
                 hasObjectInHand = true;
             }
@@ -59,7 +62,9 @@ public class PlayerPickup : NetworkBehaviour
             {
                 Drop();
 
-                SetObjectInHandServer(hit.transform.gameObject, pickupPosition.position, pickupPosition.rotation, gameObject);
+                // Calcula a posição final do objeto com base no offset
+                Vector3 finalPosition = pickupPosition.position + pickupOffset;
+                SetObjectInHandServer(hit.transform.gameObject, finalPosition, pickupPosition.rotation, gameObject);
                 objInHand = hit.transform.gameObject;
                 hasObjectInHand = true;
             }
