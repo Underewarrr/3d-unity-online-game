@@ -1,95 +1,131 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using FishNet.Connection;
-using FishNet.Object;
- 
-public class PlayerController : NetworkBehaviour
+
+public class PlayerController : MonoBehaviour
 {
-    [Header("Base setup")]
-    public float walkingSpeed = 7.5f;
-    public float runningSpeed = 11.5f;
-    public float jumpSpeed = 8.0f;
-    public float gravity = 20.0f;
-    public float lookSpeed = 2.0f;
-    public float lookXLimit = 45.0f;
- 
-    CharacterController characterController;
-    Vector3 moveDirection = Vector3.zero;
-    float rotationX = 0;
- 
-    [HideInInspector]
-    public bool canMove = true;
- 
-    [SerializeField]
-    private float cameraYOffset = 0.4f;
-    private Camera playerCamera;
- 
- 
-    public override void OnStartClient()
+    // Enumeração para os diferentes estilos de câmera
+    public enum CameraStyle
     {
-        base.OnStartClient();
-        if (base.IsOwner)
+        Standard,
+        Isometric,
+        TopDown,
+    }
+
+    // Configurações de movimento
+    [Header("Movement Settings")]
+    [SerializeField] private float walkingSpeed = 7.5f;
+    [SerializeField] private float runningSpeed = 11.5f;
+    [SerializeField] private float jumpSpeed = 8.0f;
+    [SerializeField] private float gravity = 20.0f;
+
+    // Configurações de rotação
+    [Header("Look Settings")]
+    [SerializeField] private float lookSpeed = 2.0f;
+    [SerializeField] private float lookXLimit = 45.0f;
+
+    // Configurações da câmera
+    [Header("Camera Settings")]
+    [SerializeField] private float cameraYOffset = 0.4f;
+    [SerializeField] private CameraStyle cameraStyle = CameraStyle.Standard;
+
+    private CharacterController characterController;
+    private Camera playerCamera;
+    private Vector3 moveDirection = Vector3.zero;
+    private float rotationX = 0;
+    private bool canMove = true;
+
+    private void Start()
+    {
+        InitializeComponents();
+        LockCursor();
+        SetCameraStyle(cameraStyle); // Configura o estilo da câmera ao iniciar
+    }
+
+    private void Update()
+    {
+        HandleMovement();
+        HandleRotation();
+    }
+
+    // Inicializa os componentes necessários
+    private void InitializeComponents()
+    {
+        characterController = GetComponent<CharacterController>();
+        playerCamera = Camera.main;
+
+        // Configura a posição inicial da câmera
+        if (playerCamera != null)
         {
-            playerCamera = Camera.main;
             playerCamera.transform.position = new Vector3(transform.position.x, transform.position.y + cameraYOffset, transform.position.z);
             playerCamera.transform.SetParent(transform);
         }
-        else
-        {
-            gameObject.GetComponent<PlayerController>().enabled = false;
-        }
     }
- 
-    void Start()
+
+    // Trava o cursor do mouse
+    private void LockCursor()
     {
-        characterController = GetComponent<CharacterController>();
- 
-        // Lock cursor
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
     }
- 
-    void Update()
+
+    // Lida com o movimento do jogador
+    private void HandleMovement()
     {
-        bool isRunning = false;
- 
-        // Press Left Shift to run
-        isRunning = Input.GetKey(KeyCode.LeftShift);
- 
-        // We are grounded, so recalculate move direction based on axis
-        Vector3 forward = transform.TransformDirection(Vector3.forward);
-        Vector3 right = transform.TransformDirection(Vector3.right);
- 
-        float curSpeedX = canMove ? (isRunning ? runningSpeed : walkingSpeed) * Input.GetAxis("Vertical") : 0;
-        float curSpeedY = canMove ? (isRunning ? runningSpeed : walkingSpeed) * Input.GetAxis("Horizontal") : 0;
-        float movementDirectionY = moveDirection.y;
-        moveDirection = (forward * curSpeedX) + (right * curSpeedY);
- 
-        if (Input.GetButton("Jump") && canMove && characterController.isGrounded)
+        bool isRunning = Input.GetKey(KeyCode.LeftShift);
+        float speed = isRunning ? runningSpeed : walkingSpeed;
+
+        float moveX = canMove ? Input.GetAxis("Vertical") * speed : 0;
+        float moveY = canMove ? Input.GetAxis("Horizontal") * speed : 0;
+
+        moveDirection = transform.TransformDirection(Vector3.forward) * moveX + transform.TransformDirection(Vector3.right) * moveY;
+
+        // Aplica a gravidade ao movimento
+        if (canMove && characterController.isGrounded && Input.GetButton("Jump"))
         {
             moveDirection.y = jumpSpeed;
         }
         else
         {
-            moveDirection.y = movementDirectionY;
-        }
- 
-        if (!characterController.isGrounded)
-        {
             moveDirection.y -= gravity * Time.deltaTime;
         }
- 
-        // Move the controller
+
         characterController.Move(moveDirection * Time.deltaTime);
- 
-        // Player and Camera rotation
-        if (canMove && playerCamera != null)
+    }
+
+    // Lida com a rotação do jogador e da câmera
+    private void HandleRotation()
+    {
+        if (!canMove || playerCamera == null) return;
+
+        rotationX += -Input.GetAxis("Mouse Y") * lookSpeed;
+        rotationX = Mathf.Clamp(rotationX, -lookXLimit, lookXLimit);
+
+        playerCamera.transform.localRotation = Quaternion.Euler(rotationX, 0, 0);
+        transform.rotation *= Quaternion.Euler(0, Input.GetAxis("Mouse X") * lookSpeed, 0);
+    }
+
+    // Define o estilo da câmera
+    private void SetCameraStyle(CameraStyle style)
+    {
+        switch (style)
         {
-            rotationX += -Input.GetAxis("Mouse Y") * lookSpeed;
-            rotationX = Mathf.Clamp(rotationX, -lookXLimit, lookXLimit);
-            playerCamera.transform.localRotation = Quaternion.Euler(rotationX, 0, 0);
-            transform.rotation *= Quaternion.Euler(0, Input.GetAxis("Mouse X") * lookSpeed, 0);
+            case CameraStyle.Standard:
+                // Implemente a lógica para o estilo de câmera padrão, se necessário
+                break;
+            case CameraStyle.TopDown:
+                // Implemente a lógica para o estilo de câmera de cima para baixo, se necessário
+                break;
+            case CameraStyle.Isometric:
+                // Posiciona a câmera atrás do personagem e olhando para o mesmo
+                if (playerCamera != null)
+                {
+                    Vector3 offset = -transform.forward * 2 + Vector3.up * cameraYOffset;
+                    playerCamera.transform.position = transform.position + offset;
+                    playerCamera.transform.LookAt(transform.position + Vector3.up * 0.5f);
+                }
+                break;
+            default:
+                Debug.LogError("Estilo de câmera não reconhecido: " + style);
+                break;
         }
     }
 }
